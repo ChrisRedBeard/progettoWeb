@@ -1,0 +1,346 @@
+// FIT AI — lobby coach e allenamento con analisi AI.
+// Session di Auth.js resta Session. La sessione di allenamento è WorkoutSession.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Utenti e Auth.js ----------
+
+enum Role {
+  COACH
+  ATHLETE
+}
+
+enum FeedbackMode {
+  FULL
+  CRITICAL_ONLY
+  OFF
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String
+  role          Role
+  passwordHash  String
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+
+  consentAt      DateTime?
+  consentVersion String?
+  // Preferenza persistente. Ogni WorkoutSession ne copia il valore all'avvio.
+  feedbackMode   FeedbackMode @default(FULL)
+
+  accounts        Account[]
+  sessions        Session[]
+  coachProfile    CoachProfile?
+  membership      Membership?
+  workoutSessions WorkoutSession[]
+  assignments     WorkoutAssignment[] @relation("AthleteAssignments")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model CoachProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bio    String?
+
+  lobby        Lobby?
+  exercises    Exercise[]
+  workouts     Workout[]
+  videoUploads VideoUpload[]
+}
+
+// ---------- Lobby e inviti ----------
+
+model Lobby {
+  id        String       @id @default(cuid())
+  coachId   String       @unique
+  coach     CoachProfile @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  name      String
+  createdAt DateTime     @default(now())
+
+  memberships Membership[]
+  invites     Invite[]
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  REVOKED
+  EXPIRED
+}
+
+model Invite {
+  id         String       @id @default(cuid())
+  lobbyId    String
+  lobby      Lobby        @relation(fields: [lobbyId], references: [id], onDelete: Cascade)
+  tokenHash  String       @unique
+  email      String?
+  status     InviteStatus @default(PENDING)
+  expiresAt  DateTime
+  acceptedAt DateTime?
+  createdAt  DateTime     @default(now())
+
+  @@index([lobbyId, status])
+}
+
+model Membership {
+  id        String   @id @default(cuid())
+  lobbyId   String
+  lobby     Lobby    @relation(fields: [lobbyId], references: [id], onDelete: Cascade)
+  athleteId String   @unique
+  athlete   User     @relation(fields: [athleteId], references: [id], onDelete: Cascade)
+  joinedAt  DateTime @default(now())
+
+  privateLive Boolean @default(false)
+
+  @@index([lobbyId])
+}
+
+// ---------- Esercizi e video ----------
+
+enum VideoKind {
+  EXPLANATION
+  EXECUTION
+}
+
+enum AnalysisType {
+  NONE
+  CATALOG
+  GENERIC
+}
+
+enum Visibility {
+  PRIVATE
+  PUBLIC
+}
+
+model Exercise {
+  id      String        @id @default(cuid())
+  coachId String?
+  coach   CoachProfile? @relation(fields: [coachId], references: [id], onDelete: SetNull)
+
+  title       String
+  description String?
+  visibility  Visibility @default(PRIVATE)
+
+  analysisType AnalysisType @default(NONE)
+  analysisKey  String?
+
+  defaultSets        Int     @default(3)
+  defaultReps        Int     @default(10)
+  defaultTempo       String?
+  defaultRestSeconds Int     @default(60)
+
+  archivedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  videos           ExerciseVideo[]
+  workoutExercises WorkoutExercise[]
+  liveSessions     WorkoutSession[]    @relation("SessionExercise")
+
+  @@index([coachId, archivedAt])
+}
+
+model ExerciseVideo {
+  id         String    @id @default(cuid())
+  exerciseId String
+  exercise   Exercise  @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  kind       VideoKind
+
+  storageKey      String
+  durationSeconds Int?
+  sizeBytes       Int?
+  mimeType        String?
+  createdAt       DateTime @default(now())
+
+  @@unique([exerciseId, kind])
+}
+
+// Upload ancora non collegato a un esercizio. La pulizia cancella quelli scaduti.
+model VideoUpload {
+  id         String        @id @default(cuid())
+  coachId    String
+  coach      CoachProfile  @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  storageKey String        @unique
+  mimeType   String
+  sizeBytes  Int?
+  createdAt  DateTime      @default(now())
+  attachedAt DateTime?
+
+  @@index([attachedAt, createdAt])
+}
+
+// ---------- Schede ----------
+
+model Workout {
+  id        String       @id @default(cuid())
+  coachId   String
+  coach     CoachProfile @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  title     String
+  createdAt DateTime     @default(now())
+
+  exercises   WorkoutExercise[]
+  assignments WorkoutAssignment[]
+}
+
+model WorkoutExercise {
+  id         String   @id @default(cuid())
+  workoutId  String
+  workout    Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  exerciseId String
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  position   Int
+
+  sets        Int?
+  reps        Int?
+  tempo       String?
+  restSeconds Int?
+  notes       String?
+  // Riga tolta dalla scheda ma tenuta perché ha risultati, o perché una sessione è aperta.
+  removedAt   DateTime?
+
+  setResults SetResult[]
+
+  @@unique([workoutId, position])
+}
+
+model WorkoutAssignment {
+  id         String   @id @default(cuid())
+  workoutId  String
+  workout    Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  athleteId  String
+  athlete    User     @relation("AthleteAssignments", fields: [athleteId], references: [id], onDelete: Cascade)
+  assignedAt DateTime @default(now())
+  active     Boolean  @default(true)
+
+  workoutSessions WorkoutSession[]
+
+  @@index([athleteId, active])
+}
+
+// ---------- Allenamento ----------
+
+enum SessionStatus {
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
+}
+
+model WorkoutSession {
+  id           String             @id @default(cuid())
+  athleteId    String
+  athlete      User               @relation(fields: [athleteId], references: [id], onDelete: Cascade)
+  assignmentId String?
+  assignment   WorkoutAssignment? @relation(fields: [assignmentId], references: [id], onDelete: SetNull)
+
+  status       SessionStatus @default(IN_PROGRESS)
+  feedbackMode FeedbackMode  @default(FULL)
+  startedAt    DateTime      @default(now())
+  endedAt      DateTime?
+  lastSeenAt   DateTime?
+  currentExerciseId String?
+  currentExercise   Exercise? @relation("SessionExercise", fields: [currentExerciseId], references: [id], onDelete: SetNull)
+
+  setResults SetResult[]
+  live       LiveStream?
+
+  @@index([athleteId, startedAt])
+}
+
+model SetResult {
+  id                String           @id @default(cuid())
+  sessionId         String
+  session           WorkoutSession   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  workoutExerciseId String?
+  workoutExercise   WorkoutExercise? @relation(fields: [workoutExerciseId], references: [id], onDelete: SetNull)
+  exerciseId        String
+
+  setNumber    Int
+  repsDone     Int
+  formScore    Float?
+  errors       Json?
+  trackingLost Boolean  @default(false)
+  completedAt  DateTime @default(now())
+
+  @@index([sessionId])
+}
+
+// ---------- Dirette ----------
+
+enum LiveStatus {
+  LIVE
+  ENDED
+}
+
+model LiveStream {
+  id        String         @id @default(cuid())
+  sessionId String         @unique
+  session   WorkoutSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  roomName  String         @unique
+  status    LiveStatus     @default(LIVE)
+  startedAt DateTime       @default(now())
+  endedAt   DateTime?
+
+  participants LiveParticipant[]
+}
+
+model LiveParticipant {
+  id       String     @id @default(cuid())
+  liveId   String
+  live     LiveStream @relation(fields: [liveId], references: [id], onDelete: Cascade)
+  userId   String
+  joinedAt DateTime   @default(now())
+  leftAt   DateTime?
+
+  @@index([liveId])
+}
