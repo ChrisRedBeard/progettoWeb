@@ -60,3 +60,4 @@ V7 · Una Scheda con origine = 'generata_AI' richiede un Abbonamento AI attivo a
 V8 · Se una Sessione è Basata su una Scheda, la Scheda appartiene allo stesso atleta.
 V9 · Numero di membri di una Lobby ≤ max_partecipanti.
 V10 · Errore.ripetizione compresa tra 1 e le ripetizioni dell’Esecuzione
+V11 · Un’Esecuzione partecipa ad Addestra solo se ha traccia_posa

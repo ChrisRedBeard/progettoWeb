@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <mxfile host="app.diagrams.net">
   <diagram name="Pagina-1" id="MrF5i1p0Q6_eBbqf_J4x">
-    <mxGraphModel dx="508" dy="430" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="5500" math="0" shadow="0">
+    <mxGraphModel dx="715" dy="394" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="5500" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -520,7 +519,7 @@
         <mxCell id="ae_63" edge="1" parent="1" source="ent_esec" style="endArrow=none;html=1;rounded=0;strokeWidth=1;" target="attr_esec_63">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="attr_esec_65" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;fontSize=11;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;spacingRight=3;" value="dati_tracking" vertex="1">
+        <mxCell id="attr_esec_65" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;fontSize=11;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;spacingRight=3;" value="traccia_posa (0,1)" vertex="1">
           <mxGeometry height="10" width="10" x="320" y="1880" as="geometry" />
         </mxCell>
         <mxCell id="ae_65" edge="1" parent="1" source="ent_esec" style="endArrow=none;html=1;rounded=0;strokeWidth=1;" target="attr_esec_65">
@@ -805,13 +804,13 @@
         <mxCell id="g2_lbl" parent="1" style="text;html=1;fontSize=13;fontStyle=1;align=left;verticalAlign=middle;" value="(t,e)" vertex="1">
           <mxGeometry height="24" width="50" x="1712" y="508" as="geometry" />
         </mxCell>
-        <mxCell id="note_title" parent="1" style="text;html=1;align=left;verticalAlign=middle;" value="&lt;b style=&#39;font-size:18px&#39;&gt;Schema E-R – progettoWebChristian&lt;/b&gt;" vertex="1">
+        <mxCell id="note_title" parent="1" style="text;html=1;align=left;verticalAlign=middle;" value="&lt;b style=&quot;font-size:18px&quot;&gt;Schema E-R – progettoWeb&lt;/b&gt;" vertex="1">
           <mxGeometry height="40" width="1000" x="2300" y="1420" as="geometry" />
         </mxCell>
         <mxCell id="note_legenda" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=12;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;b&gt;Legenda&lt;/b&gt;&lt;br&gt;● identificatore &amp;nbsp; ○ attributo &amp;nbsp; (0,1) attributo opzionale&lt;br&gt;(min,max) sul ramo = quante volte un&#39;istanza dell&#39;entità partecipa all&#39;associazione&lt;br&gt;min 0 = partecipazione parziale (un sottoinsieme) &amp;nbsp;·&amp;nbsp; min 1 = totale (tutte)&lt;br&gt;(t,s) generalizzazione totale e sovrapposta &amp;nbsp;·&amp;nbsp; (t,e) totale ed esclusiva" vertex="1">
           <mxGeometry height="120" width="1000" x="2300" y="1470" as="geometry" />
         </mxCell>
-        <mxCell id="note_vincoli" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=12;fillColor=#fff9e6;strokeColor=#d6b656;" value="&lt;b&gt;Vincoli di integrità non esprimibili nello schema&lt;/b&gt;&lt;br&gt;V1 · Una Chat privata esiste solo per un Invito con stato = &#39;accettato&#39;.&lt;br&gt;V2 · Mittente e destinatario di un Invito devono essere utenti diversi.&lt;br&gt;V3 · Un Messaggio può taggare solo una Sessione dell&#39;atleta della chat in cui è inviato (non nelle lobby).&lt;br&gt;V4 · Il mittente di un Messaggio / partecipante a una Videochiamata deve far parte della conversazione.&lt;br&gt;V5 · Un Coach assegna Schede solo ad atleti con cui ha una Chat privata attiva.&lt;br&gt;V6 · Pagamento: tra atleta e coach deve esistere un Invito accettato.&lt;br&gt;V7 · Una Scheda con origine = &#39;generata_AI&#39; richiede un Abbonamento AI attivo alla data di creazione.&lt;br&gt;V8 · Se una Sessione è Basata su una Scheda, la Scheda appartiene allo stesso atleta.&lt;br&gt;V9 · Numero di membri di una Lobby ≤ max_partecipanti.&lt;br&gt;V10 · Errore.ripetizione compresa tra 1 e le ripetizioni dell’Esecuzione" vertex="1">
+        <mxCell id="note_vincoli" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=12;fillColor=#fff9e6;strokeColor=#d6b656;" value="&lt;b&gt;Vincoli di integrità non esprimibili nello schema&lt;/b&gt;&lt;br&gt;V1 · Una Chat privata esiste solo per un Invito con stato = &#39;accettato&#39;.&lt;br&gt;V2 · Mittente e destinatario di un Invito devono essere utenti diversi.&lt;br&gt;V3 · Un Messaggio può taggare solo una Sessione dell&#39;atleta della chat in cui è inviato (non nelle lobby).&lt;br&gt;V4 · Il mittente di un Messaggio / partecipante a una Videochiamata deve far parte della conversazione.&lt;br&gt;V5 · Un Coach assegna Schede solo ad atleti con cui ha una Chat privata attiva.&lt;br&gt;V6 · Pagamento: tra atleta e coach deve esistere un Invito accettato.&lt;br&gt;V7 · Una Scheda con origine = &#39;generata_AI&#39; richiede un Abbonamento AI attivo alla data di creazione.&lt;br&gt;V8 · Se una Sessione è Basata su una Scheda, la Scheda appartiene allo stesso atleta.&lt;br&gt;V9 · Numero di membri di una Lobby ≤ max_partecipanti.&lt;br&gt;V10 · Errore.ripetizione compresa tra 1 e le ripetizioni dell’Esecuzione&lt;br&gt;V11 · Un’Esecuzione partecipa ad Addestra solo se ha traccia_posa" vertex="1">
           <mxGeometry height="190" width="1000" x="2300" y="1610" as="geometry" />
         </mxCell>
         <mxCell id="7ZM2SnJ5nueqQqGGu_xp-4" edge="1" parent="1" source="ent_esec" style="endArrow=none;html=1;rounded=0;strokeWidth=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;" target="7ZM2SnJ5nueqQqGGu_xp-5">
@@ -832,25 +831,25 @@
         <mxCell id="attr_errore_id" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#000000;strokeColor=#000000;fontSize=11;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;spacingLeft=3;" value="id_errore" vertex="1">
           <mxGeometry height="10" width="10" x="560" y="2115" as="geometry" />
         </mxCell>
-        <mxCell id="attr_errore_tipo" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;fontSize=11;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;spacingLeft=3;" value="tipo" vertex="1">
-          <mxGeometry height="10" width="10" x="560" y="2135" as="geometry" />
+        <mxCell id="attr_errore_tipo" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;fontSize=11;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;spacingLeft=3;" value="tipo_errore" vertex="1">
+          <mxGeometry height="10" width="10" x="560" y="2134" as="geometry" />
         </mxCell>
-        <mxCell id="attr_errore_rip" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;fontSize=11;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;spacingLeft=3;" value="ripetizione" vertex="1">
-          <mxGeometry height="10" width="10" x="560" y="2155" as="geometry" />
+        <mxCell id="attr_errore_rip" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;fontSize=11;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;spacingLeft=3;" value="livello (INFO, WARN, CRITICAL)" vertex="1">
+          <mxGeometry height="10" width="10" x="560" y="2153" as="geometry" />
         </mxCell>
-        <mxCell id="attr_errore_ist" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;fontSize=11;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;spacingLeft=3;" value="istante" vertex="1">
-          <mxGeometry height="10" width="10" x="560" y="2175" as="geometry" />
+        <mxCell id="attr_errore_ist" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;fontSize=11;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;spacingLeft=3;" value="ignorato" vertex="1">
+          <mxGeometry height="10" width="10" x="560" y="2171" as="geometry" />
         </mxCell>
         <mxCell id="ae_errore_id" edge="1" parent="1" source="ent_errore" style="endArrow=none;html=1;rounded=0;strokeWidth=1;" target="attr_errore_id">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ae_errore_tipo" edge="1" parent="1" source="ent_errore" style="endArrow=none;html=1;rounded=0;strokeWidth=1;" target="attr_errore_tipo">
+        <mxCell id="ae_errore_tipo" edge="1" parent="1" source="ent_errore" style="endArrow=none;html=1;rounded=0;strokeWidth=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" target="attr_errore_tipo">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ae_errore_rip" edge="1" parent="1" source="ent_errore" style="endArrow=none;html=1;rounded=0;strokeWidth=1;" target="attr_errore_rip">
+        <mxCell id="ae_errore_rip" edge="1" parent="1" source="ent_errore" style="endArrow=none;html=1;rounded=0;strokeWidth=1;exitX=0.996;exitY=0.553;exitDx=0;exitDy=0;exitPerimeter=0;" target="attr_errore_rip">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ae_errore_ist" edge="1" parent="1" source="ent_errore" style="endArrow=none;html=1;rounded=0;strokeWidth=1;" target="attr_errore_ist">
+        <mxCell id="ae_errore_ist" edge="1" parent="1" source="ent_errore" style="endArrow=none;html=1;rounded=0;strokeWidth=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" target="attr_errore_ist">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="re_esec_rileva" edge="1" parent="1" source="ent_esec" style="endArrow=none;html=1;rounded=0;strokeWidth=1.2;labelBackgroundColor=#ffffff;fontSize=11;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="rel_rileva" value="(0,N)">
@@ -858,6 +857,14 @@
         </mxCell>
         <mxCell id="re_errore_rileva" edge="1" parent="1" source="ent_errore" style="endArrow=none;html=1;rounded=0;strokeWidth=1.2;labelBackgroundColor=#ffffff;fontSize=11;fontStyle=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="rel_rileva" value="(1,1)">
           <mxGeometry relative="1" x="-0.3" as="geometry" />
+        </mxCell>
+        <mxCell id="o44d3C0jFs9n4HhPqsBw-4" parent="1" style="ellipse;whiteSpace=nowrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;fontSize=11;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;spacingLeft=3;" value="ripetizione" vertex="1">
+          <mxGeometry height="10" width="10" x="560" y="2188" as="geometry" />
+        </mxCell>
+        <mxCell id="o44d3C0jFs9n4HhPqsBw-5" edge="1" parent="1" source="ent_errore" style="endArrow=none;html=1;rounded=0;strokeWidth=1;exitX=1;exitY=1;exitDx=0;exitDy=0;" target="o44d3C0jFs9n4HhPqsBw-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="535" y="2185" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
