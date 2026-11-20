@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" role="img" aria-label="Scambio di valore tra atleta, FIT AI e coach">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#1c1c1c"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="520" fill="#f4f7fb"/>
+
+  <path d="M380 340
+           C335 340 320 285 355 260
+           C350 210 405 175 450 198
+           C485 150 560 165 575 220
+           C625 205 670 245 660 290
+           C700 320 675 370 625 370
+           L390 370
+           C360 370 345 350 380 340 Z"
+        fill="#ffffff" stroke="#1c1c1c" stroke-width="2"/>
+
+  <g fill="none" stroke="#1c1c1c" stroke-width="1.8" stroke-linecap="round">
+    <line x1="175" y1="245" x2="355" y2="245"/>
+    <line x1="360" y1="365" x2="175" y2="365"/>
+    <line x1="825" y1="245" x2="655" y2="245"/>
+    <line x1="645" y1="365" x2="825" y2="365"/>
+  </g>
+  <g fill="#1c1c1c">
+    <polygon points="355,245 344,239 344,251"/>
+    <polygon points="175,365 186,359 186,371"/>
+    <polygon points="655,245 666,239 666,251"/>
+    <polygon points="825,365 814,359 814,371"/>
+  </g>
+
+  <g font-family="Segoe UI, sans-serif" fill="#1c1c1c" text-anchor="middle">
+    <text x="500" y="292" font-size="25" font-weight="600">FIT AI</text>
+    <text x="265" y="182" font-size="15">
+      <tspan x="265">Profilo, dati delle sessioni</tspan>
+      <tspan x="265" dy="20">abbonamento AI,</tspan>
+      <tspan x="265" dy="20">commissione per il servizio del coach</tspan>
+    </text>
+    <text x="265" y="402" font-size="15">
+      <tspan x="265">Correzione, scheda</tspan>
+      <tspan x="265" dy="20">statistiche e misurazioni</tspan>
+    </text>
+    <text x="740" y="202" font-size="15">
+      <tspan x="740">Esercizi, schede</tspan>
+      <tspan x="740" dy="20">abbonamento coach</tspan>
+    </text>
+    <text x="740" y="402" font-size="15">
+      <tspan x="740">Presenze, risultati</tspan>
+      <tspan x="740" dy="20">compenso</tspan>
+    </text>
+  </g>
+
+  <g transform="translate(110 270)" fill="none" stroke="#1c1c1c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="0" cy="0" r="16"/>
+    <path d="M0 16 V68"/>
+    <path d="M0 68 L-23 116"/>
+    <path d="M0 68 L23 116"/>
+    <path d="M0 34 C-12 47 -19 60 -21 78"/>
+    <path d="M0 33 C12 21 26 18 43 27"/>
+  </g>
+  <g transform="translate(890 270)" fill="none" stroke="#1c1c1c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="0" cy="0" r="16"/>
+    <path d="M0 16 V68"/>
+    <path d="M0 68 L-23 116"/>
+    <path d="M0 68 L23 116"/>
+    <path d="M0 34 C-12 47 -19 60 -21 78"/>
+    <path d="M0 33 C12 21 26 18 43 27"/>
+  </g>
+
+  <g font-family="Segoe UI, sans-serif" font-size="20" fill="#1c1c1c" text-anchor="middle">
+    <text x="110" y="425">Atleta</text>
+    <text x="890" y="425">Coach</text>
+  </g>
+</svg>

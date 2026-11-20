@@ -1,84 +1,94 @@
-# Stakeholder e goal
+# 2. Individuazione degli stakeholder e dei goal
 
-Gli stakeholder sono le persone che usano FIT AI: l’atleta e il coach. Un goal è la richiesta, cioè il problema che quella persona porta. Un requisito è la risposta del sistema. Il sotto-goal è la stessa richiesta, ristretta a un caso che si può realizzare con operazioni sui dati.
+## 2.1 Individuazione degli stakeholder
 
-## Atleta
+Gli stakeholder sono i tipi di utente dell’applicazione.
 
-**Goal A — Eseguire il gesto in modo corretto anche se in sala non c’è un istruttore.**
+- **Atleta.** Si registra, consulta il catalogo e la scheda, si allena, riceve la correzione del gesto e acquista l’abbonamento AI e il servizio del coach.
+- **Coach.** Gestisce esercizi e schede, organizza gli atleti nelle proprie lobby, li segue in diretta, legge i risultati e riceve le commissioni. Paga l’abbonamento coach.
 
-Il problema è non accorgersi dell’errore mentre lo si sta facendo.
+## 2.2 Diagramma di contesto
 
-| Sotto-goal | Requisito (risposta del sistema) |
-|---|---|
-| A1. Essere corretto durante la serie | All’avvio, dopo il consenso alla camera, nasce una sessione. A ogni serie il sistema conta le ripetizioni, calcola il punteggio di forma e segnala l’errore (ginocchia in dentro, schiena curva, profondità insufficiente, tempo troppo veloce). La serie conclusa resta come esecuzione: ripetizioni, punteggio, errori, perdita di inquadratura. |
-| A2. Sapere cosa fare oggi | Se l’atleta ha un coach, la home di allenamento mostra la scheda attiva, con ordine, serie, ripetizioni, tempo e recupero. Il catalogo pubblico resta consultabile anche per chi ha già un coach. |
-| A3. Ritrovare il lavoro già fatto | Lo storico elenca le sessioni dell’atleta e, per ciascuna, le esecuzioni salvate. |
+Il diagramma mostra i goal funzionali di ogni stakeholder. Al centro si trovano i goal condivisi; ai lati quelli propri di un solo stakeholder. La numerazione G1–G10 è mantenuta nel raffinamento per collegare ogni goal ai suoi subgoal.
 
-**Goal B — Farsi seguire da un coach senza perdere il controllo su chi guarda.**
+Sono condivisi la gestione dell’anagrafica, del catalogo degli esercizi, della scheda, degli inviti, della diretta e degli acquisti, oltre alla consultazione di statistiche e misurazioni. La gestione dell’allenamento appartiene all’atleta; la gestione delle lobby e delle certificazioni appartiene al coach. All’avvio dell’allenamento, l’atleta può scegliere indipendentemente monitoraggio AI e diretta: l’AI richiede un Abbonamento AI attivo, mentre l’accesso del coach richiede un Servizio coach attivo. Se seleziona soltanto l’AI, la diretta nasce privata e può essere resa visibile durante la sessione. Senza nessuna delle due abilitazioni vengono registrate soltanto le esecuzioni. La chiusura dell’allenamento termina monitoraggio e diretta eventualmente attivi.
 
-Il problema è entrare nel gruppo giusto e poter chiudere la ripresa quando non si vuole essere osservati.
+![Diagramma di contesto: atleta e coach con frecce verso i goal](diagramma-contesto.svg)
 
-| Sotto-goal | Requisito (risposta del sistema) |
-|---|---|
-| B1. Entrare nella lobby del coach scelto | L’atleta accetta un invito ancora valido. L’accettazione crea l’appartenenza a quella lobby. Se ha già un altro coach, il sistema chiede conferma: solo allora chiude le schede attive del coach precedente e toglie la membership vecchia. Le sessioni già svolte restano sue. |
-| B2. Impedire l’ingresso in diretta | L’atleta attiva la modalità privata sulla propria membership. Il coach collegato viene disconnesso e un ingresso successivo viene rifiutato. |
+### Raffinamento
 
-**Goal C — Pagare i servizi che usa e il coach che lo segue.**
+Per ogni stakeholder la tabella riporta i goal, i relativi subgoal e le operazioni consentite secondo la notazione CRUDS. Il codice del subgoal, per esempio G3.2, mostra immediatamente il goal padre G3.
 
-Il problema è usare l’analisi e il lavoro del coach senza un acquisto riconducibile a chi li ha richiesti.
+C crea, R legge una singola istanza, U aggiorna, D elimina e S (Search) ricerca o consulta un insieme di dati. Nella colonna D, `F` indica la cancellazione fisica, `L` quella logica e `F/L` entrambe.
 
-| Sotto-goal | Requisito (risposta del sistema) |
-|---|---|
-| C1. Avere l’analisi a pagamento | L’atleta acquista un abbonamento AI. Ogni rinnovo è un nuovo periodo. Una scheda di origine generata dall’AI viene accettata solo se, in quella data, un abbonamento è attivo. |
-| C2. Compensare il proprio coach | L’atleta registra un pagamento di commissione verso il coach con cui ha un invito accettato. La quota della piattaforma è la parte trattenuta; il resto è del coach. |
+**Atleta**
 
-## Coach
+| Stakeholder | Goal | Subgoal | C | R | U | D | S |
+|---|---|---|---|---|---|---|---|
+| Atleta | **G1 · Gestione anagrafica** | G1.1 · Registra la propria anagrafica | ● | | | | |
+| Atleta | **G1 · Gestione anagrafica** | G1.2 · Visualizza i propri dati anagrafici | | ● | | | |
+| Atleta | **G1 · Gestione anagrafica** | G1.3 · Modifica genere, altezza, peso, obiettivo e foto | | | ● | | |
+| Atleta | **G2 · Gestione catalogo esercizi** | G2.1 · Consulta gli esercizi pubblici e i relativi dettagli | | ● | | | ● |
+| Atleta | **G3 · Gestione scheda** | G3.1 · Visualizza la scheda attiva | | ● | | | |
+| Atleta | **G4 · Statistiche e misurazioni** | G4.1 · Consulta le proprie sessioni ed esecuzioni | | | | | ● |
+| Atleta | **G5 · Gestione inviti** | G5.1 · Accetta un invito e attiva l’appartenenza alla lobby indicata | | | ● | | |
+| Atleta | **G5 · Gestione inviti** | G5.2 · Consulta lo stato dei propri inviti | | | | | ● |
+| Atleta | **G6 · Gestione diretta** | G6.1 · Imposta o rimuove la modalità privata della diretta | | | ● | | |
+| Atleta | **G7 · Gestione acquisti** | G7.1 · Acquista un abbonamento AI | ● | | | | |
+| Atleta | **G7 · Gestione acquisti** | G7.2 · Annulla l’abbonamento AI modificandone lo stato | | | ● | | |
+| Atleta | **G7 · Gestione acquisti** | G7.3 · Consulta i propri abbonamenti | | | | | ● |
+| Atleta | **G7 · Gestione acquisti** | G7.4 · Attiva un servizio coach in una lobby | ● | | | | |
+| Atleta | **G7 · Gestione acquisti** | G7.5 · Paga una commissione riferita al servizio coach | ● | | | | |
+| Atleta | **G7 · Gestione acquisti** | G7.6 · Interrompe il servizio coach modificandone lo stato | | | ● | | |
+| Atleta | **G7 · Gestione acquisti** | G7.7 · Consulta i propri servizi coach | | | | | ● |
+| Atleta | **G7 · Gestione acquisti** | G7.8 · Consulta i pagamenti effettuati | | | | | ● |
+| Atleta | **G8 · Gestione allenamento** | G8.1 · Avvia una sessione e registra l’esecuzione | ● | | | | |
+| Atleta | **G8 · Gestione allenamento** | G8.2 · Avvia il monitoraggio automatico, se l’abbonamento AI è attivo | ● | | | | |
+| Atleta | **G8 · Gestione allenamento** | G8.3 · Avvia la diretta, se dispone di abbonamento AI o servizio coach attivo | ● | | | | |
+| Atleta | **G8 · Gestione allenamento** | G8.4 · Visualizza il feedback di correttezza, se il monitoraggio AI è attivo | | ● | | | |
+| Atleta | **G8 · Gestione allenamento** | G8.5 · Chiude la sessione, l’eventuale monitoraggio AI e l’eventuale diretta | | | ● | | |
 
-**Goal D — Preparare il lavoro di molti atleti e sapere come lo stanno eseguendo.**
+**Coach**
 
-Il problema è non poter scrivere una scheda diversa per ogni ora di sala e non vedere il risultato quando l’atleta si allena da casa.
+| Stakeholder | Goal | Subgoal | C | R | U | D | S |
+|---|---|---|---|---|---|---|---|
+| Coach | **G1 · Gestione anagrafica** | G1.1 · Registra la propria anagrafica | ● | | | | |
+| Coach | **G1 · Gestione anagrafica** | G1.2 · Visualizza il proprio profilo | | ● | | | |
+| Coach | **G1 · Gestione anagrafica** | G1.3 · Modifica genere, foto, tariffa, livello di esperienza e link social | | | ● | | |
+| Coach | **G2 · Gestione catalogo esercizi** | G2.1 · Inserisce un nuovo esercizio | ● | | | | |
+| Coach | **G2 · Gestione catalogo esercizi** | G2.2 · Consulta gli esercizi | | | | | ● |
+| Coach | **G2 · Gestione catalogo esercizi** | G2.3 · Modifica un esercizio | | | ● | | |
+| Coach | **G2 · Gestione catalogo esercizi** | G2.4 · Rimuove un esercizio dal catalogo attivo | | | | L | |
+| Coach | **G3 · Gestione scheda** | G3.1 · Crea una scheda | ● | | | | |
+| Coach | **G3 · Gestione scheda** | G3.2 · Consulta le schede | | | | | ● |
+| Coach | **G3 · Gestione scheda** | G3.3 · Modifica serie, ripetizioni, carico, recupero e ordine | | | ● | | |
+| Coach | **G3 · Gestione scheda** | G3.4 · Assegna la scheda a un atleta | ● | | | | |
+| Coach | **G3 · Gestione scheda** | G3.5 · Chiude un’assegnazione | | | ● | | |
+| Coach | **G3 · Gestione scheda** | G3.6 · Toglie un esercizio dalla scheda | | | | F | |
+| Coach | **G4 · Statistiche e misurazioni** | G4.1 · Consulta sessioni, esecuzioni ed errori dei membri attivi delle proprie lobby con servizio attivo | | | | | ● |
+| Coach | **G5 · Gestione inviti** | G5.1 · Crea un invito destinato a un atleta e a una propria lobby | ● | | | | |
+| Coach | **G5 · Gestione inviti** | G5.2 · Consulta gli inviti | | | | | ● |
+| Coach | **G5 · Gestione inviti** | G5.3 · Revoca un invito modificandone lo stato | | | ● | | |
+| Coach | **G6 · Gestione diretta** | G6.1 · Entra nella diretta non privata di un membro attivo di una propria lobby con servizio attivo | | ● | | | |
+| Coach | **G7 · Gestione acquisti** | G7.1 · Sottoscrive un abbonamento coach | ● | | | | |
+| Coach | **G7 · Gestione acquisti** | G7.2 · Visualizza il proprio abbonamento | | ● | | | |
+| Coach | **G7 · Gestione acquisti** | G7.3 · Consulta le commissioni ricevute | | | | | ● |
+| Coach | **G7 · Gestione acquisti** | G7.4 · Consulta i servizi coach erogati | | | | | ● |
+| Coach | **G9 · Gestione lobby** | G9.1 · Crea una lobby come categoria di clienti | ● | | | | |
+| Coach | **G9 · Gestione lobby** | G9.2 · Consulta le proprie lobby | | | | | ● |
+| Coach | **G9 · Gestione lobby** | G9.3 · Consulta i membri attivi e chi è in allenamento | | | | | ● |
+| Coach | **G10 · Gestione certificazioni** | G10.1 · Inserisce una certificazione | ● | | | | |
+| Coach | **G10 · Gestione certificazioni** | G10.2 · Consulta le certificazioni | | | | | ● |
+| Coach | **G10 · Gestione certificazioni** | G10.3 · Modifica una certificazione | | | ● | | |
 
-| Sotto-goal | Requisito (risposta del sistema) |
-|---|---|
-| D1. Costruire un esercizio riusabile | Il coach crea l’esercizio con titolo, descrizione, serie e recupero di default, e vi collega al più un video di spiegazione e uno di esecuzione. Può aggiornarlo. Se non deve più comparire nelle schede nuove, lo archivia: la riga resta, perché schede e risultati già esistenti la citano. Il catalogo di sistema è in sola lettura. |
-| D2. Consegnare una scheda a un atleta della lobby | Il coach compone la scheda, riordina gli esercizi e la assegna. Un atleta ha una sola scheda attiva: una nuova assegnazione chiede conferma e chiude la precedente. L’assegnazione è rifiutata se l’atleta non è in lobby. Togliere un esercizio che ha già risultati, o che appartiene a una sessione aperta, non cancella la riga: la marca come rimossa, così lo storico resta collegato. Senza risultati e senza sessione aperta, la riga si elimina. |
-| D3. Leggere i risultati | Dalla scheda cliente il coach consulta le sessioni di quell’atleta, anche quelle iniziate prima dell’ingresso in lobby, finché la membership esiste. |
+## 2.3 Scambio di valore
 
-**Goal E — Intervenire mentre l’atleta si sta allenando, e solo se lui è d’accordo.**
+Lo scambio di valore è il modello di business: le entità e i flussi di valore che intercorrono tra esse.
 
-Il problema è accorgersi in ritardo, o entrare in una ripresa che l’atleta ha voluto chiudere.
+L’atleta fornisce a FIT AI il profilo e i dati delle sessioni. FIT AI gli restituisce la correzione del gesto, la scheda e lo storico. L’atleta paga a FIT AI l’abbonamento AI e ne riceve l’analisi del movimento.
 
-| Sotto-goal | Requisito (risposta del sistema) |
-|---|---|
-| E1. Vedere chi è in allenamento | La lobby elenca gli atleti e distingue chi ha una sessione aperta. «In diretta» richiede una scheda assegnata, un segnale recente e la privacy spenta. L’allenamento libero resta «in allenamento». |
-| E2. Guardare e parlare | Il coach entra nella stanza solo se è il coach di quella lobby, la privacy è spenta, la sessione è assegnata e il segnale è recente. Pubblica solo l’audio. Mentre il microfono è aperto, la voce dell’analisi in pausa lascia spazio alla sua. Uscire dalla schermata chiude il suo collegamento, non l’allenamento dell’atleta. |
+L’atleta paga la commissione per il servizio del coach. FIT AI trattiene la quota della piattaforma e versa il resto al coach. In cambio, attraverso FIT AI, il coach consegna la scheda e il seguito in diretta.
 
-**Goal F — Ammettere solo gli atleti voluti e tenere in regola il proprio profilo.**
+Il coach paga a FIT AI l’abbonamento coach e riceve lobby, libreria esercizi, schede e diretta. Fornisce esercizi e schede; FIT AI gli restituisce le presenze degli atleti e i risultati delle esecuzioni.
 
-| Sotto-goal | Requisito (risposta del sistema) |
-|---|---|
-| F1. Invitare e poter ritirare l’invito | Il coach crea un invito con scadenza. Può revocarlo: lo stato diventa revocato e il token non è più accettabile. Un invito scaduto resta in elenco con stato scaduto. |
-| F2. Mantenere l’accesso agli strumenti | Il coach sottoscrive l’abbonamento coach, un periodo alla volta. |
-| F3. Dichiarare una qualifica | Il coach registra le certificazioni che possiede. Sono dati del suo profilo, consultabili insieme alla biografia. |
-
-## Matrice delle operazioni
-
-C crea, R legge, U aggiorna, D elimina, S cerca in un elenco. La cancellazione logica tiene la riga e ne cambia lo stato. La cancellazione fisica toglie la riga. Dove il sotto-goal non elimina nulla, le due ultime colonne restano vuote.
-
-| Stakeholder | Goal | Sotto-goal | C | R | U | D | S | Cancellazione logica | Cancellazione fisica |
-|---|---|---|---|---|---|---|---|---|---|
-| Atleta | A | A1. Registrare la serie | ● | ● | | | ● | | |
-| Atleta | A | A2. Consultare la scheda attiva | | ● | | | ● | | |
-| Atleta | A | A3. Rivedere lo storico | | ● | | | ● | | |
-| Atleta | B | B1. Accettare l’invito | ● | ● | ● | ● | | Schede del coach precedente: `active` diventa falso | Membership precedente rimossa |
-| Atleta | B | B2. Attivare la diretta privata | | ● | ● | | | | |
-| Atleta | C | C1. Acquistare l’abbonamento AI | ● | ● | | | ● | | |
-| Atleta | C | C2. Pagare la commissione | ● | ● | | | | | |
-| Coach | D | D1. Gestire un esercizio | ● | ● | ● | ● | ● | `archivedAt`: la riga resta, esclusa dalle schede nuove | |
-| Coach | D | D2. Comporre e assegnare la scheda | ● | ● | ● | ● | ● | Assegnazione chiusa (`active` falso). Esercizio tolto ma con risultati o sessione aperta: `removedAt` | Esercizio tolto dalla scheda senza risultati e senza sessione aperta |
-| Coach | D | D3. Leggere i risultati dell’atleta | | ● | | | ● | | |
-| Coach | E | E1. Consultare la lobby | | ● | | | ● | | |
-| Coach | E | E2. Entrare in diretta e parlare | | ● | ● | | | | |
-| Coach | F | F1. Creare o revocare un invito | ● | ● | | ● | ● | Stato revocato o scaduto: la riga resta | |
-| Coach | F | F2. Sottoscrivere l’abbonamento coach | ● | ● | | | ● | | |
-| Coach | F | F3. Registrare una certificazione | ● | ● | ● | | ● | | |
+![Scambio di valore tra atleta, FIT AI e coach](scambio-di-valore.svg)
