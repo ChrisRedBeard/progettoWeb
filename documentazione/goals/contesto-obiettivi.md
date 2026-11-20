@@ -2,12 +2,13 @@
 
 Gestione degli atleti, dei coach e dei servizi di FIT AI, applicazione web per controllare la correttezza degli esercizi in palestra o a casa.
 
-Il sistema risponde a quel problema. L’atleta inquadra il movimento con la camera del proprio dispositivo. Durante la serie l’applicazione conta le ripetizioni, assegna un punteggio di forma e segnala l’errore mentre il gesto è ancora in corso. A fine serie conserva il risultato: ripetizioni svolte, punteggio, errori, eventuale perdita dell’inquadratura. L’atleta può allenarsi da solo sul catalogo pubblico oppure seguire la scheda che gli ha assegnato un coach oppure seguire una scheda generata dall'AI.
+Il sistema risponde a quel problema. L’atleta inquadra il movimento con la camera del proprio dispositivo. Durante la serie l’applicazione conta le ripetizioni, assegna un punteggio di forma e segnala l’errore mentre il gesto è ancora in corso. A fine serie conserva il risultato: ripetizioni svolte, punteggio, errori, eventuale perdita dell’inquadratura. L’atleta può allenarsi da solo sul catalogo pubblico oppure seguire una scheda: scritta a mano da lui scegliendo gli esercizi dal catalogo, preparata apposta da un coach o generata dall’AI.
 
 **Informazioni sui clienti**
 
-- Atleta (nome, cognome, genere, email, foto, altezza, peso, obiettivo)
+- Atleta (nome, cognome, genere, email, foto, altezza, peso, obiettivo, consenso all’uso della camera, modalità del feedback vocale)
 - Coach (nome, cognome, genere, email, foto, link social, livello di esperienza, tariffa)
+- Certificazione del coach (titolo, ente di rilascio, data di conseguimento)
 
 **Informazioni sui prodotti in vendita**
 
@@ -26,9 +27,13 @@ Il sistema risponde a quel problema. L’atleta inquadra il movimento con la cam
 
 - Allenarsi e migliorare la performance anche a casa, senza dover essere in palestra
 - Essere corretti sul gesto senza un istruttore accanto: con un abbonamento AI attivo, la camera monitora il gesto e segnala l’errore mentre la serie è in corso
+- Usare la camera solo se lo si desidera: è facoltativa ma fortemente consigliata per un tracking ottimale, e l’atleta può accenderla o spegnerla in ogni momento
 - Seguire la scheda del proprio coach a distanza, con serie, ripetizioni, carico e recupero
+- Avere più schede, dei propri coach, scritte a mano o generate dall’AI, e scegliere a ogni allenamento quale seguire
+- Essere seguito anche da più coach contemporaneamente, ognuno nella propria lobby
 - All’avvio dell’allenamento, scegliere separatamente monitoraggio AI e diretta: con entrambe le abilitazioni si possono attivare entrambi; con il solo Abbonamento AI si può attivare il monitoraggio; con il solo Servizio coach si può attivare la diretta; senza abilitazioni si eseguono soltanto gli esercizi
-- Se viene selezionato soltanto il monitoraggio AI, avviare la diretta in modalità privata e permettere all’atleta di renderla visibile durante l’allenamento
-- Permettere al coach di entrare soltanto nelle dirette non private dei membri attivi delle proprie lobby con Servizio coach attivo
+- Se viene selezionato soltanto il monitoraggio AI, avviare la diretta in modalità privata, così l’atleta vede i consigli del tracking, e permettergli di renderla visibile durante l’allenamento
+- Permettere al coach di entrare soltanto nelle dirette non private dei membri attivi delle proprie lobby con Servizio coach attivo, durante un allenamento su una scheda che ha assegnato lui e non ha ancora chiuso
 - Lasciare attivi allenamento e monitoraggio AI quando la diretta è privata; chiudendo l’allenamento si chiudono anche monitoraggio e diretta eventualmente attivi
 - Conservare statistiche e misurazioni, come serie, punteggi ed errori, per valutare il miglioramento della performance nel tempo
+- Poter cancellare il proprio account e i propri dati personali

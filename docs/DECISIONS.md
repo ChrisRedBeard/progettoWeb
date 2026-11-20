@@ -2,6 +2,22 @@
 
 Scelte prese dove la specifica lasciava un margine. La più semplice, annotata qui.
 
+## Decisioni di prodotto del 20 novembre 2026
+
+Valgono per il modello in `documentazione/` e prevalgono sulle parti di questo file indicate sotto. Dove il codice fa ancora altro, va allineato in un lavoro a parte.
+
+- **Scheda non modificabile.** Una scheda caricata non si modifica: per aggiornarla se ne carica una nuova, con nota e data, e la precedente si chiude. Supera la modifica sul posto di `saveWorkout` e la rimozione con `removedAt` descritte in «Libreria, video e schede».
+- **Più schede per atleta.** Un atleta può avere più schede aperte; quella attiva è la scheda che segue nell'allenamento in corso. Assegnare una scheda non chiude le altre. Supera «Un atleta ha una sola scheda attiva».
+- **Scheda del coach per un atleta preciso.** Il coach carica ogni scheda per un solo atleta; non esistono schede modello assegnate a più atleti. Oggi `Workout` è un modello del coach con più `WorkoutAssignment`: da allineare.
+- **Chiudere un'assegnazione non chiude la scheda.** La scheda resta all'atleta, che può continuare a usarla da solo; il coach smette di seguirla e non entra più nelle dirette su quella scheda. Oggi la pagina `/workout` mostra solo le assegnazioni attive e il token della diretta non controlla se l'assegnazione è aperta: da allineare.
+- **Più coach per atleta.** Accettare un invito non chiude le altre appartenenze e non serve la conferma di cambio coach. Uscire da una lobby cambia lo stato dell'appartenenza invece di cancellarla. Supera il cambio coach descritto in «Inviti e lobby» e l'unicità di `Membership.athleteId`.
+- **Diretta del coach: resta come nel codice.** Il coach entra solo se la sessione segue una scheda che ha assegnato, con heartbeat recente e privacy spenta.
+- **Camera facoltativa.** È fortemente consigliata per il tracking e l'atleta può accenderla o spegnerla in ogni momento; senza camera non ci sono tracking, monitoraggio AI né video. La sessione nasce quando l'atleta preme Inizia: supera «La sessione nasce quando la camera è concessa». Per usare la camera serve sempre il consenso.
+- **Privacy per singola diretta.** La modalità privata vale per la diretta in corso e l'atleta la cambia in ogni momento. Oggi `privateLive` sta su `Membership`.
+- **Diretta con sola AI.** Si svolge privata e senza conversazione, così l'atleta vede i consigli del tracking.
+- **Account cancellabile.** I dati personali si cancellano; restano, anonimi, solo i dati che servono ad altri, come pagamenti e commissioni.
+- **Fuori ambito.** Chat, messaggi, tag delle sessioni e ciclo di vita dei modelli AI restano nel modello E-R ma non nell'analisi delle operazioni.
+
 ## Next.js 15.5.29
 
 Il progetto partiva da Next 15.2.4, che ha una vulnerabilità nota. Si resta sulla linea 15, all'ultima patch (`15.5.29`), invece di saltare a Next 16. L'App Router e il middleware restano quelli già previsti.

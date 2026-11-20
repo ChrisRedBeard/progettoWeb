@@ -15,14 +15,18 @@ A3: cognome
 A4: email
 A5: foto (0,1)
 A6: genere
+A7: stato (attivo, cancellato; con «cancellato» i dati personali sono rimossi)
 
 ET: Atleta
-DESCRIZIONE: specializzazione di Utente. È il cliente che si allena, segue una scheda e acquista l’abbonamento AI e il servizio del coach.
+DESCRIZIONE: specializzazione di Utente. È il cliente che si allena, segue le proprie schede e acquista l’abbonamento AI e il servizio di uno o più coach.
 ATTRIBUTI:
 A1: altezza
 A2: peso
 A3: obiettivo
-Eredita da Utente: id_utente, nome, cognome, genere, email, foto.
+A4: modalita_feedback (completa, solo_critici, spenta)
+A5: data_consenso (0,1; consenso all’uso della camera)
+A6: versione_consenso (0,1)
+Eredita da Utente: id_utente, nome, cognome, genere, email, foto, stato.
 
 ET: Coach
 DESCRIZIONE: specializzazione di Utente. È il cliente che prepara esercizi e schede, segue gli atleti e riceve le commissioni.
@@ -30,7 +34,7 @@ ATTRIBUTI:
 A1: link_social (0,N)
 A2: livello_esperienza
 A3: tariffa
-Eredita da Utente: id_utente, nome, cognome, genere, email, foto.
+Eredita da Utente: id_utente, nome, cognome, genere, email, foto, stato.
 
 ET: Certificazione
 DESCRIZIONE: entità per una qualifica dichiarata dal coach. È la promozione a entità dell’attributo multivalore «certificazioni».
@@ -95,12 +99,12 @@ A2: testo
 A3: data_ora
 
 ET: Videochiamata
-DESCRIZIONE: entità per una chiamata svolta in una conversazione. La diretta di allenamento è il caso in cui la conversazione è una lobby.
+DESCRIZIONE: entità per una chiamata, di solito svolta in una conversazione. La diretta di allenamento è il caso in cui la conversazione è una lobby; la diretta privata con il solo monitoraggio AI non ha conversazione.
 ATTRIBUTI:
 A1: id_chiamata (chiave primaria)
 A2: inizio
 A3: fine (0,1)
-A4: modalita_privata (boolean; false = il coach può accedere, true = accesso del coach bloccato)
+A4: modalita_privata (boolean; false = il coach può accedere, true = accesso del coach bloccato; l’atleta la cambia in ogni momento)
 
 ET: Pagamento commissione
 DESCRIZIONE: entità per il compenso che un atleta versa al coach per il servizio, con la quota trattenuta dalla piattaforma.
@@ -136,13 +140,14 @@ A3: fine (0,1)
 A4: stato
 
 ET: Scheda
-DESCRIZIONE: entità per il programma di esercizi di un atleta. Può essere scritta dal coach, a mano o con l’aiuto dell’AI.
+DESCRIZIONE: entità per il programma di esercizi di un atleta. Può essere scritta dal coach, a mano o con l’aiuto dell’AI. Una scheda caricata non si modifica: per aggiornarla se ne carica una nuova e la precedente si chiude. Un atleta può avere più schede aperte; quella attiva è la scheda seguita nella sessione in corso.
 ATTRIBUTI:
 A1: id_scheda (chiave primaria)
 A2: nome
-A3: data_creazione
+A3: data_creazione (data di caricamento)
 A4: origine (manuale, consigli_AI, generata_AI, coach)
-A5: stato
+A5: stato (aperta, chiusa, eliminata)
+A6: nota (0,1; messaggio che accompagna il caricamento, per esempio il motivo dell’aggiornamento)
 
 ET: Esercizio
 DESCRIZIONE: entità per un esercizio del catalogo, riusabile in più schede.
@@ -196,8 +201,8 @@ ENTITÀ: Messaggio (1,1) — Conversazione (0,N)
 ATTRIBUTI: nessuno
 
 REL: Svolta in
-DESCRIZIONE: conversazione in cui avviene la videochiamata.
-ENTITÀ: Videochiamata (1,1) — Conversazione (0,N)
+DESCRIZIONE: conversazione in cui avviene la videochiamata. La diretta privata con il solo monitoraggio AI non ne ha (V21).
+ENTITÀ: Videochiamata (0,1) — Conversazione (0,N)
 ATTRIBUTI: nessuno
 
 REL: Diretta di
@@ -236,7 +241,7 @@ ENTITÀ: Coach (0,N) — Lobby (1,1)
 ATTRIBUTI: nessuno
 
 REL: Membro di
-DESCRIZIONE: appartenenza di un atleta a una lobby.
+DESCRIZIONE: appartenenza di un atleta a una lobby. Un atleta può essere membro delle lobby di più coach; uscendo, l’appartenenza cambia stato e registra data_uscita.
 ENTITÀ: Atleta (0,N) — Lobby (0,N)
 ATTRIBUTI:
 A1: stato
@@ -294,12 +299,12 @@ ENTITÀ: Atleta (0,N) — Sessione allenamento (1,1)
 ATTRIBUTI: nessuno
 
 REL: Appartiene
-DESCRIZIONE: atleta a cui la scheda è intestata.
+DESCRIZIONE: atleta a cui la scheda è intestata fin dal caricamento; anche la scheda del coach è per un atleta preciso.
 ENTITÀ: Atleta (0,N) — Scheda (1,1)
 ATTRIBUTI: nessuno
 
 REL: Assegna
-DESCRIZIONE: coach che consegna la scheda. Una scheda scritta dall’atleta non ha coach.
+DESCRIZIONE: coach che consegna la scheda. Una scheda scritta dall’atleta non ha coach. Chiudere l’assegnazione termina il seguito del coach su quella scheda, ma la scheda resta aperta all’atleta (V23).
 ENTITÀ: Coach (0,N) — Scheda (0,1)
 ATTRIBUTI:
 A1: data_assegnazione
@@ -332,8 +337,8 @@ ENTITÀ: Abbonamento AI (0,N) — Monitoraggio AI (1,1)
 ATTRIBUTI: nessuno
 
 REL: Comprende
-DESCRIZIONE: esercizi previsti da una scheda, con la prescrizione. Una scheda appena creata può essere vuota.
-ENTITÀ: Scheda (0,N) — Esercizio (0,N)
+DESCRIZIONE: esercizi previsti da una scheda, con la prescrizione. Una scheda si carica con almeno un esercizio.
+ENTITÀ: Scheda (1,N) — Esercizio (0,N)
 ATTRIBUTI:
 A1: serie (quante serie svolgere)
 A2: ripetizioni
