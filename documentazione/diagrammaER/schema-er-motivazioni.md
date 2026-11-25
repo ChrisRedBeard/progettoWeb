@@ -40,14 +40,16 @@ La coppia sul ramo dice quante volte una singola istanza dell'entità partecipa 
 | Appartiene | Atleta (0,N) – Scheda (1,1) | Ogni scheda è dell'atleta che la segue, anche quella caricata dal coach, che nasce già per un atleta preciso |
 | Redige | Coach (0,N) – Scheda (0,1) | Registra l’autore coach anche prima dell’assegnazione; le schede non redatte da coach non partecipano |
 | Assegna | Coach (0,N) – Scheda (0,1) | Stato, data_assegnazione e data_fine permettono la chiusura senza perdere lo storico; chiudere l’assegnazione non chiude la scheda, che resta all’atleta (V23) |
-| Comprende | Scheda (1,N) – Esercizio (0,N) | N:N; una scheda si carica con almeno un esercizio e poi non si modifica. Serie, ripetizioni, carico, recupero e ordine sono attributi del legame |
+| Crea esercizio | Coach (0,N) – Esercizio (0,1) | Solo gli esercizi privati hanno un coach autore; il catalogo è pubblicato dall’admin |
+| Illustra | Esercizio (0,N) – Materiale esercizio (1,1) | Immagini, video e spiegazione stanno in tabella dedicata, riusabile per catalogo e privati |
+| Comprende | Scheda (1,N) – Esercizio (0,N) | N:N; atleta usa solo il catalogo, coach anche i privati; serie, ripetizioni e tempo sul legame |
 | Rileva | Esecuzione (0,N) – Errore (1,1) | Un’esecuzione può non avere errori. Ogni errore appartiene a una sola esecuzione: tipo, ripetizione e istante sono attributi dell’errore, numero_serie è attributo dell’esecuzione |
 | Esegue | Atleta (0,N) – Sessione (1,1) | Ogni sessione è di un solo atleta |
 | Basata su | Sessione (0,1) – Scheda (0,N) | Una sessione può essere libera |
 | Include | Sessione (0,N) – Esecuzione esercizio (1,1) | Una sessione interrotta subito non ha esecuzioni |
 | Monitora | Sessione (0,1) – Monitoraggio AI (1,1) | Il monitoraggio è opzionale e una sessione ne ha al massimo uno |
 | Autorizzato da | Abbonamento AI (0,N) – Monitoraggio AI (1,1) | Ogni monitoraggio è autorizzato da un abbonamento AI attivo |
-| Relativa a | Esecuzione (1,1) – Esercizio (0,N) | Ogni esecuzione riguarda un esercizio del catalogo |
+| Relativa a | Esecuzione (1,1) – Esercizio (0,N) | Ogni esecuzione riguarda un esercizio (catalogo o privato) |
 | Valuta | Esecuzione (0,1) – Modello AI (0,N) | Solo le esecuzioni monitorate dall’AI sono giudicate da una versione del modello |
 | Addestra | Esecuzione (0,N) – Modello AI (0,N) | N:N: le esecuzioni diventano dati di addestramento; la prima versione può usare dati esterni |
 | Personalizza | Atleta (0,N) – Modello AI (0,1) | Il modello base è generico; una versione personalizzata è di un solo atleta |
@@ -59,6 +61,8 @@ La coppia sul ramo dice quante volte una singola istanza dell'entità partecipa 
 - **Abbonamento AI / Abbonamento coach**: stessi attributi; si possono generalizzare in Abbonamento (t,e).
 - **Servizio coach è distinto dall’Abbonamento coach**: il primo è il rapporto acquistato dall’atleta; il secondo abilita il coach all’uso degli strumenti di FIT AI.
 - **Monitoraggio AI e diretta sono indipendenti**: l’atleta può attivarli entrambi, uno solo o nessuno. Se attiva soltanto l’AI, la diretta nasce privata.
+- **Tabella Esercizio**: ambito ∈ {catalogo, privato}. Il catalogo è solo ciò che pubblica l’admin; i privati li crea il coach e li vede solo lui.
+- **Tabella Materiale esercizio**: immagini, video e spiegazione di ogni esercizio (Illustra).
 - **Cancellazione logica dell’esercizio**: Esercizio.stato ∈ {attivo, archiviato} conserva i riferimenti storici.
 - **Scheda non modificabile**: una scheda caricata non cambia; per aggiornarla se ne carica una nuova e la precedente si chiude. Nota e data di caricamento (data_creazione) sono quindi attributi della Scheda e non un’entità a parte, perché ogni scheda ne ha una sola. Le sessioni restano collegate alla scheda che hanno davvero seguito.
 - **Più schede per atleta**: un atleta può avere più schede aperte, dei suoi coach, scritte da lui o generate dall’AI. La scheda «attiva» è quella seguita nella sessione in corso (Basata su), non uno stato della Scheda.

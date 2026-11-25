@@ -2,7 +2,7 @@
 
 Gestione degli atleti, dei coach e dei servizi di FIT AI, applicazione web per controllare la correttezza degli esercizi in palestra o a casa.
 
-Il sistema risponde a quel problema. L’atleta inquadra il movimento con la camera del proprio dispositivo. Durante la serie l’applicazione conta le ripetizioni, assegna un punteggio di forma e segnala l’errore mentre il gesto è ancora in corso. A fine serie conserva il risultato: ripetizioni svolte, punteggio, errori, eventuale perdita dell’inquadratura. L’atleta può allenarsi da solo sul catalogo pubblico oppure seguire una scheda: scritta a mano da lui scegliendo gli esercizi dal catalogo, preparata apposta da un coach o generata dall’AI.
+Il sistema risponde a quel problema. L’atleta inquadra il movimento con la camera del proprio dispositivo. Durante la serie l’applicazione conta le ripetizioni, assegna un punteggio di forma e segnala l’errore mentre il gesto è ancora in corso. A fine serie conserva il risultato: ripetizioni svolte, punteggio, errori, eventuale perdita dell’inquadratura. Gli esercizi sono memorizzati nella tabella Esercizio. Il catalogo è la raccolta degli esercizi pubblicati solo dall’admin del sito: atleta e coach lo consultano, ma non lo modificano. Il coach può inoltre creare esercizi privati, visibili solo a lui e non presenti nel catalogo. Per ogni esercizio una tabella Materiale esercizio conserva immagini, video e spiegazione. Quando creano una scheda, l’atleta sceglie esercizi dal catalogo; il coach può scegliere esercizi del catalogo oppure i propri privati; in entrambi i casi abbinano serie, ripetizioni e tempo da eseguire. L’atleta può allenarsi da solo oppure seguire una scheda, scritta a mano da lui o dal coach oppure generata dall’AI.
 
 **Informazioni sui clienti**
 

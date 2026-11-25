@@ -150,13 +150,22 @@ A5: stato (aperta, chiusa, eliminata)
 A6: nota (0,1; messaggio che accompagna il caricamento, per esempio il motivo dell’aggiornamento)
 
 ET: Esercizio
-DESCRIZIONE: entità per un esercizio del catalogo, riusabile in più schede.
+DESCRIZIONE: entità/tabella degli esercizi riusabili in più schede. L’attributo ambito distingue il catalogo (pubblicato dall’admin del sito, consultabile da tutti) dagli esercizi privati del coach (visibili solo al creatore, non presenti nel catalogo).
 ATTRIBUTI:
 A1: id_esercizio (chiave primaria)
 A2: nome
 A3: descrizione
 A4: gruppo_muscolare
-A5: stato (attivo, archiviato)
+A5: ambito (catalogo, privato)
+A6: stato (attivo, archiviato)
+
+ET: Materiale esercizio
+DESCRIZIONE: entità/tabella per immagini, video e spiegazione collegati a un esercizio. Un esercizio può avere più materiali.
+ATTRIBUTI:
+A1: id_materiale (chiave primaria)
+A2: tipo (immagine, video, spiegazione)
+A3: contenuto (URL del file oppure testo della spiegazione)
+A4: ordine (0,1)
 
 ET: Esecuzione esercizio
 DESCRIZIONE: entità per una serie svolta dentro una sessione. Conserva il risultato, non la prescrizione della scheda.
@@ -336,18 +345,29 @@ DESCRIZIONE: abbonamento AI attivo che autorizza il monitoraggio.
 ENTITÀ: Abbonamento AI (0,N) — Monitoraggio AI (1,1)
 ATTRIBUTI: nessuno
 
+REL: Crea esercizio
+DESCRIZIONE: coach autore di un esercizio privato. Gli esercizi del catalogo (ambito = catalogo) non hanno coach; quelli privati sì.
+ENTITÀ: Coach (0,N) — Esercizio (0,1)
+ATTRIBUTI: nessuno
+
+REL: Illustra
+DESCRIZIONE: materiali (immagini, video, spiegazione) di un esercizio.
+ENTITÀ: Esercizio (0,N) — Materiale esercizio (1,1)
+ATTRIBUTI: nessuno
+
 REL: Comprende
-DESCRIZIONE: esercizi previsti da una scheda, con la prescrizione. Una scheda si carica con almeno un esercizio.
+DESCRIZIONE: esercizi previsti da una scheda, con la prescrizione. L’atleta sceglie solo esercizi del catalogo; il coach può scegliere anche i propri privati. In entrambi i casi abbinano serie, ripetizioni e tempo. Una scheda si carica con almeno un esercizio.
 ENTITÀ: Scheda (1,N) — Esercizio (0,N)
 ATTRIBUTI:
 A1: serie (quante serie svolgere)
 A2: ripetizioni
-A3: carico
-A4: recupero
-A5: ordine
+A3: tempo (durata da eseguire)
+A4: carico (0,1)
+A5: recupero (0,1)
+A6: ordine
 
 REL: Relativa a
-DESCRIZIONE: esercizio di catalogo a cui si riferisce l’esecuzione.
+DESCRIZIONE: esercizio a cui si riferisce l’esecuzione (di catalogo o privato del coach).
 ENTITÀ: Esecuzione esercizio (1,1) — Esercizio (0,N)
 ATTRIBUTI: nessuno
 

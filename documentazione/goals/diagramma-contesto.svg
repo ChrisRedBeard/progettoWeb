@@ -1,75 +1,228 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 900" role="img" aria-label="Diagramma di contesto con atleta, coach e dieci goal funzionali">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 2360" role="img" aria-label="Diagramma di contesto con atleta, coach, goal e subgoal">
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#1c1c1c"/>
     </marker>
+    <style>
+      .bg { fill: #f4f7fb; }
+      .goal { fill: #ffffff; stroke: #1c1c1c; stroke-width: 2.2; }
+      .goal-t { font-family: 'Segoe UI', sans-serif; font-size: 21px; font-weight: 700; fill: #1c1c1c; text-anchor: middle; dominant-baseline: middle; }
+      .sub { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #222222; }
+      .actor { font-family: 'Segoe UI', sans-serif; font-size: 24px; font-weight: 700; fill: #1c1c1c; text-anchor: middle; }
+      .line { fill: none; stroke: #1c1c1c; stroke-width: 2; marker-end: url(#arrow); }
+      .line-coach { fill: none; stroke: #1c1c1c; stroke-width: 2; marker-end: url(#arrow); }
+      .spine { fill: none; stroke: #1c1c1c; stroke-width: 2.2; }
+      .band { fill: #e8eef6; }
+      .hint { font-family: 'Segoe UI', sans-serif; font-size: 15px; fill: #666666; text-anchor: middle; }
+    </style>
   </defs>
-  <rect width="1000" height="900" fill="#f4f7fb"/>
 
-  <g fill="#ffffff" stroke="#1c1c1c" stroke-width="1.8">
-    <ellipse cx="500" cy="95" rx="165" ry="40"/>
-    <ellipse cx="500" cy="210" rx="165" ry="40"/>
-    <ellipse cx="500" cy="325" rx="165" ry="40"/>
-    <ellipse cx="500" cy="440" rx="165" ry="40"/>
-    <ellipse cx="500" cy="555" rx="165" ry="40"/>
-    <ellipse cx="500" cy="670" rx="165" ry="40"/>
-    <ellipse cx="500" cy="785" rx="165" ry="40"/>
-    <ellipse cx="110" cy="95" rx="105" ry="40"/>
-    <ellipse cx="890" cy="95" rx="105" ry="40"/>
-    <ellipse cx="890" cy="785" rx="105" ry="40"/>
+  <rect class="bg" width="1480" height="2360"/>
+
+  <!-- Stickman Atleta in alto a sinistra -->
+  <g transform="translate(80 70)" fill="none" stroke="#1c1c1c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="0" cy="0" r="18"/>
+    <path d="M0 18 V78"/>
+    <path d="M0 78 L-24 128"/>
+    <path d="M0 78 L24 128"/>
+    <path d="M0 38 C-14 52 -22 64 -24 82"/>
+    <path d="M0 38 C14 24 28 20 46 30"/>
+  </g>
+  <text class="actor" x="80" y="230">Atleta</text>
+
+  <!-- Stickman Coach in alto a destra -->
+  <g transform="translate(1400 70)" fill="none" stroke="#1c1c1c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="0" cy="0" r="18"/>
+    <path d="M0 18 V78"/>
+    <path d="M0 78 L-24 128"/>
+    <path d="M0 78 L24 128"/>
+    <path d="M0 38 C-14 52 -22 64 -24 82"/>
+    <path d="M0 38 C14 24 28 20 46 30"/>
+  </g>
+  <text class="actor" x="1400" y="230">Coach</text>
+
+  <!-- spine -->
+  <line class="spine" x1="80" y1="230" x2="80" y2="2140"/>
+  <line class="spine" x1="1400" y1="230" x2="1400" y2="2140"/>
+
+  <!-- bande -->
+  <rect class="band" x="160" y="250" width="1160" height="200" rx="14"/>
+  <rect class="band" x="160" y="470" width="1160" height="150" rx="14"/>
+  <rect class="band" x="160" y="640" width="1160" height="190" rx="14"/>
+  <rect class="band" x="160" y="850" width="1160" height="120" rx="14"/>
+  <rect class="band" x="160" y="990" width="1160" height="190" rx="14"/>
+  <rect class="band" x="160" y="1200" width="1160" height="120" rx="14"/>
+  <rect class="band" x="160" y="1340" width="1160" height="230" rx="14"/>
+  <rect class="band" x="160" y="1590" width="1160" height="180" rx="14"/>
+  <rect class="band" x="160" y="1790" width="1160" height="160" rx="14"/>
+  <rect class="band" x="160" y="1970" width="1160" height="160" rx="14"/>
+
+  <!-- rami Atleta -->
+  <line class="line" x1="80" y1="350" x2="280" y2="350"/>
+  <line class="line" x1="80" y1="545" x2="280" y2="545"/>
+  <line class="line" x1="80" y1="735" x2="280" y2="735"/>
+  <line class="line" x1="80" y1="910" x2="280" y2="910"/>
+  <line class="line" x1="80" y1="1085" x2="280" y2="1085"/>
+  <line class="line" x1="80" y1="1260" x2="280" y2="1260"/>
+  <line class="line" x1="80" y1="1455" x2="280" y2="1455"/>
+  <line class="line" x1="80" y1="1680" x2="280" y2="1680"/>
+
+  <!-- rami Coach: dalla spina verso i goal, punta a sinistra -->
+  <line class="line-coach" x1="1400" y1="350" x2="1200" y2="350"/>
+  <line class="line-coach" x1="1400" y1="545" x2="1200" y2="545"/>
+  <line class="line-coach" x1="1400" y1="735" x2="1200" y2="735"/>
+  <line class="line-coach" x1="1400" y1="910" x2="1200" y2="910"/>
+  <line class="line-coach" x1="1400" y1="1085" x2="1200" y2="1085"/>
+  <line class="line-coach" x1="1400" y1="1260" x2="1200" y2="1260"/>
+  <line class="line-coach" x1="1400" y1="1455" x2="1200" y2="1455"/>
+  <line class="line-coach" x1="1400" y1="1870" x2="1200" y2="1870"/>
+  <line class="line-coach" x1="1400" y1="2050" x2="1200" y2="2050"/>
+
+  <!-- Goal -->
+  <ellipse class="goal" cx="740" cy="350" rx="150" ry="42"/>
+  <ellipse class="goal" cx="740" cy="545" rx="150" ry="42"/>
+  <ellipse class="goal" cx="740" cy="735" rx="150" ry="42"/>
+  <ellipse class="goal" cx="740" cy="910" rx="150" ry="42"/>
+  <ellipse class="goal" cx="740" cy="1085" rx="150" ry="42"/>
+  <ellipse class="goal" cx="740" cy="1260" rx="150" ry="42"/>
+  <ellipse class="goal" cx="740" cy="1455" rx="150" ry="42"/>
+  <ellipse class="goal" cx="740" cy="1680" rx="150" ry="42"/>
+  <ellipse class="goal" cx="740" cy="1870" rx="150" ry="42"/>
+  <ellipse class="goal" cx="740" cy="2050" rx="150" ry="42"/>
+
+  <text class="goal-t" x="740" y="350">Anagrafica</text>
+  <text class="goal-t" x="740" y="545">Catalogo esercizi</text>
+  <text class="goal-t" x="740" y="735">Scheda</text>
+  <text class="goal-t" x="740" y="910">Statistiche e misurazioni</text>
+  <text class="goal-t" x="740" y="1085">Inviti</text>
+  <text class="goal-t" x="740" y="1260">Diretta</text>
+  <text class="goal-t" x="740" y="1455">Acquisti</text>
+  <text class="goal-t" x="740" y="1680">Allenamento</text>
+  <text class="goal-t" x="740" y="1870">Lobby</text>
+  <text class="goal-t" x="740" y="2050">Certificazioni</text>
+
+  <!-- Atleta subgoals -->
+  <g class="sub" transform="translate(300 275)">
+    <text>• Registra anagrafica</text>
+    <text y="22">• Visualizza dati</text>
+    <text y="44">• Modifica profilo</text>
+    <text y="66">• Consenso camera</text>
+    <text y="88">• Feedback vocale</text>
+    <text y="110">• Elimina account</text>
   </g>
 
-  <g fill="none" stroke="#1c1c1c" stroke-width="1.6" stroke-linecap="round" marker-end="url(#arrow)">
-    <line x1="148" y1="430" x2="335" y2="95"/>
-    <line x1="148" y1="430" x2="335" y2="210"/>
-    <line x1="148" y1="430" x2="335" y2="325"/>
-    <line x1="148" y1="430" x2="335" y2="440"/>
-    <line x1="148" y1="430" x2="335" y2="555"/>
-    <line x1="148" y1="430" x2="335" y2="670"/>
-    <line x1="148" y1="430" x2="335" y2="785"/>
-    <line x1="852" y1="430" x2="665" y2="95"/>
-    <line x1="852" y1="430" x2="665" y2="210"/>
-    <line x1="852" y1="430" x2="665" y2="325"/>
-    <line x1="852" y1="430" x2="665" y2="440"/>
-    <line x1="852" y1="430" x2="665" y2="555"/>
-    <line x1="852" y1="430" x2="665" y2="670"/>
-    <line x1="852" y1="430" x2="665" y2="785"/>
-    <line x1="110" y1="392" x2="110" y2="135"/>
-    <line x1="890" y1="392" x2="890" y2="135"/>
-    <line x1="890" y1="510" x2="890" y2="745"/>
+  <g class="sub" transform="translate(300 500)">
+    <text>• Consulta catalogo admin</text>
+    <text y="22">  (immagini, video, spiegazione)</text>
   </g>
 
-  <g font-family="Segoe UI, sans-serif" font-size="17" fill="#1c1c1c" text-anchor="middle">
-    <text x="500" y="90"><tspan font-weight="600">G1</tspan><tspan x="500" dy="21">Gestione anagrafica</tspan></text>
-    <text x="500" y="205"><tspan font-weight="600">G2</tspan><tspan x="500" dy="21">Gestione catalogo esercizi</tspan></text>
-    <text x="500" y="320"><tspan font-weight="600">G3</tspan><tspan x="500" dy="21">Gestione scheda</tspan></text>
-    <text x="500" y="435"><tspan font-weight="600">G4</tspan><tspan x="500" dy="21">Statistiche e misurazioni</tspan></text>
-    <text x="500" y="550"><tspan font-weight="600">G5</tspan><tspan x="500" dy="21">Gestione inviti</tspan></text>
-    <text x="500" y="665"><tspan font-weight="600">G6</tspan><tspan x="500" dy="21">Gestione diretta</tspan></text>
-    <text x="500" y="780"><tspan font-weight="600">G7</tspan><tspan x="500" dy="21">Gestione acquisti</tspan></text>
-    <text x="110" y="90"><tspan font-weight="600">G8</tspan><tspan x="110" dy="21">Gestione allenamento</tspan></text>
-    <text x="890" y="90"><tspan font-weight="600">G9</tspan><tspan x="890" dy="21">Gestione lobby</tspan></text>
-    <text x="890" y="780"><tspan font-weight="600">G10</tspan><tspan x="890" dy="21">Gestione certificazioni</tspan></text>
+  <g class="sub" transform="translate(300 655)">
+    <text>• Crea scheda da catalogo</text>
+    <text y="22">  + serie, ripetizioni, tempo</text>
+    <text y="44">• Consulta schede</text>
+    <text y="66">• Aggiorna con nuova</text>
+    <text y="88">• Elimina scheda</text>
   </g>
 
-  <g transform="translate(110 425)" fill="none" stroke="#1c1c1c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="0" cy="0" r="15"/>
-    <path d="M0 15 V62"/>
-    <path d="M0 62 L-20 105"/>
-    <path d="M0 62 L20 105"/>
-    <path d="M0 31 C-10 43 -17 54 -19 70"/>
-    <path d="M0 31 C10 20 23 17 38 25"/>
+  <g class="sub" transform="translate(300 880)">
+    <text>• Consulta sessioni,</text>
+    <text y="22">  esecuzioni ed errori</text>
   </g>
-  <g transform="translate(890 425)" fill="none" stroke="#1c1c1c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="0" cy="0" r="15"/>
-    <path d="M0 15 V62"/>
-    <path d="M0 62 L-20 105"/>
-    <path d="M0 62 L20 105"/>
-    <path d="M0 31 C-10 43 -17 54 -19 70"/>
-    <path d="M0 31 C10 20 23 17 38 25"/>
+
+  <g class="sub" transform="translate(300 1020)">
+    <text>• Visualizza invito</text>
+    <text y="22">• Visualizza profilo coach</text>
+    <text y="44">• Accetta invito</text>
+    <text y="66">• Rifiuta invito</text>
+    <text y="88">• Consulta inviti</text>
   </g>
-  <g font-family="Segoe UI, sans-serif" font-size="19" fill="#1c1c1c">
-    <text x="82" y="470" text-anchor="end">Atleta</text>
-    <text x="918" y="470">Coach</text>
+
+  <g class="sub" transform="translate(300 1230)">
+    <text>• Imposta/rimuove</text>
+    <text y="22">  modalità privata</text>
   </g>
+
+  <g class="sub" transform="translate(300 1365)">
+    <text>• Acquista abbonamento AI</text>
+    <text y="22">• Annulla abbonamento AI</text>
+    <text y="44">• Consulta abbonamenti</text>
+    <text y="66">• Attiva servizio coach</text>
+    <text y="88">• Paga commissione</text>
+    <text y="110">• Interrompe servizio</text>
+    <text y="132">• Consulta servizi/pagamenti</text>
+  </g>
+
+  <g class="sub" transform="translate(300 1610)">
+    <text>• Avvia sessione</text>
+    <text y="22">• Avvia monitoraggio AI</text>
+    <text y="44">• Avvia diretta</text>
+    <text y="66">• Visualizza feedback</text>
+    <text y="88">• Chiude sessione</text>
+  </g>
+
+  <!-- Coach subgoals -->
+  <g class="sub" transform="translate(920 285)">
+    <text>• Registra anagrafica</text>
+    <text y="22">• Visualizza profilo</text>
+    <text y="44">• Modifica profilo</text>
+    <text y="66">• Elimina account</text>
+  </g>
+
+  <g class="sub" transform="translate(920 475)">
+    <text>• Consulta catalogo admin</text>
+    <text y="22">• Crea esercizio privato</text>
+    <text y="44">  (solo lui, con media)</text>
+    <text y="66">• Consulta esercizi privati</text>
+  </g>
+
+  <g class="sub" transform="translate(920 645)">
+    <text>• Carica scheda da catalogo</text>
+    <text y="22">  o esercizi privati</text>
+    <text y="44">  + serie, ripetizioni, tempo</text>
+    <text y="66">• Consulta schede</text>
+    <text y="88">• Aggiorna con nuova</text>
+    <text y="110">• Assegna scheda</text>
+    <text y="132">• Chiude assegnazione</text>
+  </g>
+
+  <g class="sub" transform="translate(920 875)">
+    <text>• Consulta sessioni/esecuzioni/</text>
+    <text y="22">  errori dei membri attivi</text>
+  </g>
+
+  <g class="sub" transform="translate(920 1035)">
+    <text>• Crea invito</text>
+    <text y="22">• Consulta inviti</text>
+    <text y="44">• Revoca invito</text>
+  </g>
+
+  <g class="sub" transform="translate(920 1225)">
+    <text>• Entra in diretta non privata</text>
+    <text y="22">  (scheda assegnata aperta)</text>
+  </g>
+
+  <g class="sub" transform="translate(920 1380)">
+    <text>• Sottoscrive abbonamento</text>
+    <text y="22">• Visualizza abbonamento</text>
+    <text y="44">• Disdice abbonamento</text>
+    <text y="66">• Consulta commissioni</text>
+    <text y="88">• Consulta servizi erogati</text>
+  </g>
+
+  <g class="sub" transform="translate(920 1815)">
+    <text>• Crea lobby</text>
+    <text y="22">• Consulta lobby</text>
+    <text y="44">• Consulta membri in allenamento</text>
+    <text y="66">• Modifica lobby</text>
+  </g>
+
+  <g class="sub" transform="translate(920 1995)">
+    <text>• Inserisce certificazione</text>
+    <text y="22">• Consulta certificazioni</text>
+    <text y="44">• Modifica certificazione</text>
+    <text y="66">• Elimina certificazione</text>
+  </g>
+
+  <text class="hint" x="740" y="2210">Ogni riga = un goal. Sinistra: subgoal Atleta. Destra: subgoal Coach.</text>
+  <text class="hint" x="740" y="2238">Allenamento solo Atleta · Lobby e Certificazioni solo Coach</text>
 </svg>

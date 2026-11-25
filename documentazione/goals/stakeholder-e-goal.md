@@ -4,16 +4,16 @@
 
 Gli stakeholder sono i tipi di utente dell’applicazione.
 
-- **Atleta.** Si registra, consulta il catalogo e la scheda, si allena, riceve la correzione del gesto e acquista l’abbonamento AI e il servizio del coach.
-- **Coach.** Gestisce esercizi e schede, organizza gli atleti nelle proprie lobby, li segue in diretta, legge i risultati e riceve le commissioni. Paga l’abbonamento coach.
+- **Atleta.** Si registra, consulta il catalogo pubblicato dall’admin, crea schede scegliendo esercizi del catalogo e impostando serie, ripetizioni e tempo, si allena, riceve la correzione del gesto e acquista l’abbonamento AI e il servizio del coach.
+- **Coach.** Consulta il catalogo, crea esercizi privati visibili solo a lui, prepara schede scegliendo esercizi del catalogo o i propri e impostando serie, ripetizioni e tempo, organizza le lobby, segue gli atleti in diretta, legge i risultati e riceve le commissioni. Paga l’abbonamento coach.
 
 ## 2.2 Diagramma di contesto
 
 Il diagramma mostra i goal funzionali di ogni stakeholder. Al centro si trovano i goal condivisi; ai lati quelli propri di un solo stakeholder. La numerazione G1–G10 è mantenuta nel raffinamento per collegare ogni goal ai suoi subgoal.
 
-Sono condivisi la gestione dell’anagrafica, del catalogo degli esercizi, della scheda, degli inviti, della diretta e degli acquisti, oltre alla consultazione di statistiche e misurazioni. La gestione dell’allenamento appartiene all’atleta; la gestione delle lobby e delle certificazioni appartiene al coach. All’avvio dell’allenamento, l’atleta può scegliere indipendentemente monitoraggio AI e diretta: l’AI richiede un Abbonamento AI attivo, mentre l’accesso del coach richiede un Servizio coach attivo e una sessione su una scheda assegnata da lui, con l’assegnazione ancora aperta. Se seleziona soltanto l’AI, la diretta nasce privata, così l’atleta vede i consigli del tracking, e può essere resa visibile durante la sessione. Senza nessuna delle due abilitazioni vengono registrate soltanto le esecuzioni. La chiusura dell’allenamento termina monitoraggio e diretta eventualmente attivi. La camera è facoltativa ma fortemente consigliata per un tracking ottimale, e l’atleta può accenderla o spegnerla in ogni momento.
+Sono condivisi anagrafica, catalogo esercizi, scheda, inviti, diretta e acquisti, oltre a statistiche e misurazioni. Il catalogo contiene solo esercizi pubblicati dall’admin del sito. Allenamento appartiene all’atleta; lobby e certificazioni appartengono al coach. Il coach, oltre al catalogo, gestisce esercizi privati usabili solo nelle sue schede. All’avvio dell’allenamento, l’atleta può scegliere indipendentemente monitoraggio AI e diretta: l’AI richiede un Abbonamento AI attivo, mentre l’accesso del coach richiede un Servizio coach attivo e una sessione su una scheda assegnata da lui, con l’assegnazione ancora aperta. Se seleziona soltanto l’AI, la diretta nasce privata, così l’atleta vede i consigli del tracking, e può essere resa visibile durante la sessione. Senza nessuna delle due abilitazioni vengono registrate soltanto le esecuzioni. La chiusura dell’allenamento termina monitoraggio e diretta eventualmente attivi. La camera è facoltativa ma fortemente consigliata per un tracking ottimale, e l’atleta può accenderla o spegnerla in ogni momento.
 
-![Diagramma di contesto: atleta e coach con frecce verso i goal](diagramma-contesto.svg)
+![Diagramma di contesto: atleta e coach con frecce verso i goal (G1–G10)](diagramma-contesto.svg)
 
 ### Raffinamento
 
@@ -35,9 +35,9 @@ Chat, messaggi, tag delle sessioni e ciclo di vita dei modelli AI restano nel mo
 | Atleta | **G1 · Gestione anagrafica** | G1.4 · Dà o revoca il consenso all’uso della camera | | | ● | | |
 | Atleta | **G1 · Gestione anagrafica** | G1.5 · Imposta la modalità del feedback vocale | | | ● | | |
 | Atleta | **G1 · Gestione anagrafica** | G1.6 · Elimina il proprio account | | | | F/L | |
-| Atleta | **G2 · Gestione catalogo esercizi** | G2.1 · Consulta gli esercizi pubblici e i relativi dettagli | | ● | | | ● |
-| Atleta | **G3 · Gestione scheda** | G3.1 · Crea una scheda, a mano o con l’AI; quella generata dall’AI richiede l’abbonamento AI attivo | ● | | | | |
-| Atleta | **G3 · Gestione scheda** | G3.2 · Consulta le proprie schede e il dettaglio di ciascuna, con nota e data | | ● | | | ● |
+| Atleta | **G2 · Gestione catalogo esercizi** | G2.1 · Consulta gli esercizi del catalogo pubblicati dall’admin, con immagini, video e spiegazione | | ● | | | ● |
+| Atleta | **G3 · Gestione scheda** | G3.1 · Crea una scheda, a mano o con l’AI, scegliendo esercizi del catalogo e abbinando serie, ripetizioni e tempo; quella generata dall’AI richiede l’abbonamento AI attivo | ● | | | | |
+| Atleta | **G3 · Gestione scheda** | G3.2 · Consulta le proprie schede e il dettaglio di ciascuna, con nota, data, esercizi, serie, ripetizioni e tempo | | ● | | | ● |
 | Atleta | **G3 · Gestione scheda** | G3.3 · Aggiorna una scheda che ha creato caricandone una nuova; la precedente si chiude | ● | | ● | | |
 | Atleta | **G3 · Gestione scheda** | G3.4 · Elimina una scheda che ha creato | | | | L | |
 | Atleta | **G4 · Statistiche e misurazioni** | G4.1 · Consulta le proprie sessioni, esecuzioni ed errori | | | | | ● |
@@ -46,7 +46,6 @@ Chat, messaggi, tag delle sessioni e ciclo di vita dei modelli AI restano nel mo
 | Atleta | **G5 · Gestione inviti** | G5.3 · Accetta un invito e attiva l’appartenenza alla lobby indicata | ● | | ● | | |
 | Atleta | **G5 · Gestione inviti** | G5.4 · Rifiuta un invito modificandone lo stato | | | ● | | |
 | Atleta | **G5 · Gestione inviti** | G5.5 · Consulta lo stato dei propri inviti | | | | | ● |
-| Atleta | **G5 · Gestione inviti** | G5.6 · Esce da una lobby modificando lo stato dell’appartenenza | | | ● | | |
 | Atleta | **G6 · Gestione diretta** | G6.1 · Imposta o rimuove la modalità privata della diretta | | | ● | | |
 | Atleta | **G7 · Gestione acquisti** | G7.1 · Acquista un abbonamento AI | ● | | | | |
 | Atleta | **G7 · Gestione acquisti** | G7.2 · Annulla l’abbonamento AI modificandone lo stato | | | ● | | |
@@ -70,12 +69,11 @@ Chat, messaggi, tag delle sessioni e ciclo di vita dei modelli AI restano nel mo
 | Coach | **G1 · Gestione anagrafica** | G1.2 · Visualizza il proprio profilo | | ● | | | |
 | Coach | **G1 · Gestione anagrafica** | G1.3 · Modifica genere, foto, tariffa, livello di esperienza e link social | | | ● | | |
 | Coach | **G1 · Gestione anagrafica** | G1.4 · Elimina il proprio account | | | | F/L | |
-| Coach | **G2 · Gestione catalogo esercizi** | G2.1 · Inserisce un nuovo esercizio | ● | | | | |
-| Coach | **G2 · Gestione catalogo esercizi** | G2.2 · Consulta gli esercizi e il dettaglio di ciascuno | | ● | | | ● |
-| Coach | **G2 · Gestione catalogo esercizi** | G2.3 · Modifica un proprio esercizio | | | ● | | |
-| Coach | **G2 · Gestione catalogo esercizi** | G2.4 · Rimuove un esercizio dal catalogo attivo | | | | L | |
-| Coach | **G3 · Gestione scheda** | G3.1 · Carica una scheda per un atleta, con esercizi del catalogo, nota e data | ● | | | | |
-| Coach | **G3 · Gestione scheda** | G3.2 · Consulta le schede e il dettaglio di ciascuna | | ● | | | ● |
+| Coach | **G2 · Gestione catalogo esercizi** | G2.1 · Consulta gli esercizi del catalogo pubblicati dall’admin, con immagini, video e spiegazione | | ● | | | ● |
+| Coach | **G2 · Gestione catalogo esercizi** | G2.2 · Crea un esercizio privato, visibile solo a lui, con immagini, video e spiegazione | ● | | | | |
+| Coach | **G2 · Gestione catalogo esercizi** | G2.3 · Consulta i propri esercizi privati | | ● | | | ● |
+| Coach | **G3 · Gestione scheda** | G3.1 · Carica una scheda per un atleta scegliendo esercizi del catalogo o privati e abbinando serie, ripetizioni e tempo, con nota e data | ● | | | | |
+| Coach | **G3 · Gestione scheda** | G3.2 · Consulta le schede e il dettaglio di ciascuna, con esercizi, serie, ripetizioni e tempo | | ● | | | ● |
 | Coach | **G3 · Gestione scheda** | G3.3 · Aggiorna la scheda di un atleta caricandone una nuova con nota e data; la precedente si chiude | ● | | ● | | |
 | Coach | **G3 · Gestione scheda** | G3.4 · Assegna la scheda all’atleta per cui l’ha caricata | ● | | | | |
 | Coach | **G3 · Gestione scheda** | G3.5 · Chiude un’assegnazione; la scheda resta all’atleta | | | ● | | |
